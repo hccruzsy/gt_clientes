@@ -53,16 +53,21 @@
 </div>
 
 <script>
-    // Credenciales "seguras" (simuladas)
-    const USUARIO_CORRECTO = "admin";
-    const CONTRASENA_CORRECTA = "1234";
+    // Lista de usuarios permitidos
+    const USUARIOS = [
+        { nombre: "admin", contrasena: "1234" },
+        { nombre: "user", contrasena: "4321" }
+    ];
 
     function validar() {
-        const usuario = document.getElementById("usuario").value;
-        const contrasena = document.getElementById("contrasena").value;
+        const usuario = document.getElementById("usuario").value.trim();
+        const contrasena = document.getElementById("contrasena").value.trim();
         const mensaje = document.getElementById("mensaje");
 
-        if (usuario === USUARIO_CORRECTO && contrasena === CONTRASENA_CORRECTA) {
+        // Buscar si el usuario existe y la contraseña es correcta
+        const encontrado = USUARIOS.find(u => u.nombre === usuario && u.contrasena === contrasena);
+
+        if (encontrado) {
             localStorage.setItem("autenticado", "true");
             window.location.href = "protegido.html";
         } else {
